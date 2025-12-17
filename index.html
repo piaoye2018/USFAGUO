@@ -1,302 +1,367 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的导航页</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>守护生灵 Guardians of the Wild - 动物保护公益组织</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-image: url('http://files.unn.pp.ua/download/pictures%2Fbackground.jpg');
-            background-size: cover;
-            background-attachment: fixed;
-            background-position: center;
+        /* --- 1. 全局变量与重置 --- */
+        :root {
+            --primary-color: #2E5D4B; /* 森林深绿 */
+            --accent-color: #E65100; /* 警示/行动橙色 */
+            --text-dark: #1A1A1A;
+            --text-light: #F5F5F5;
+            --bg-light: #F9F9F9;
+            --font-main: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        * {
             margin: 0;
-            padding: 20px;
-            color: #333;
+            padding: 0;
+            box-sizing: border-box;
         }
-        
-        .header {
-            color: #fff;
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+
+        body {
+            font-family: var(--font-main);
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: #fff;
         }
-        
-        .search-container {
-            padding: 3rem;
-            width: 100%;
-            max-width: 500px;
-            margin: 0 auto 20px;
-        }
-        
-        .search-box {
-            width: 100%;
-            padding: 15px 18px;
-            font-size: 20px;
-            border: none;
-            border-radius: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            outline: none;
-            background-color: rgba(255, 255, 255, 0.7);
-        }
-        
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 12px;
-        }
-        
-        .link-item {
-            background-color: rgba(255, 255, 255, 0.3);
-            border-radius: 15px;
-            padding: 12px;
-            transition: all 0.2s;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            height: 60px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .link-item:hover {
-            background-color: rgba(255, 255, 255, 0.85);
-            transform: translateY(-2px);
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
-        }
-        
-        .link-item a {
-            text-decoration: none;
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            height: 100%;
-            justify-content: center;
-        }
-        
-        .link-icon {
-            width: 24px;
-            height: 24px;
-            margin-bottom: 8px;
-            object-fit: contain;
-        }
-        
-        .link-text {
-            font-size: 14px;
-            text-align: center;
-            word-break: break-word;
-            max-width: 100%;
-        }
-        .foot_marker {
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* --- 2. 导航栏 (Navigation) --- */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 1rem 5%;
             position: fixed;
-            bottom: 10px;
-            left: 0;
-            right: 0;
             width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--primary-color); }
+
+        .btn-donate {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: transform 0.2s, background 0.3s;
+        }
+
+        .btn-donate:hover {
+            background-color: #BF360C;
+            transform: translateY(-2px);
+        }
+
+        /* --- 3. 首屏 Hero Section --- */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1547971167-17257922d4f2?q=80&w=2070&auto=format&fit=crop'); /* 替换为真实的濒危动物图片 */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            font-size: 12px;
-            color: rgba(255,255,255,0.8);
-            z-index: 999;
-            padding: 10px 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.3), transparent);
+            color: white;
+            padding: 0 20px;
         }
 
-        .foot_marker a {
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            transition: color 0.3s ease;
-            padding: 5px 10px;
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin-bottom: 2rem;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-outline {
+            border: 2px solid white;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: var(--text-dark);
+        }
+
+        /* --- 4. 危机数据区 (Stats) --- */
+        .stats {
+            padding: 4rem 5%;
+            background-color: var(--primary-color);
+            color: white;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #FFCC80;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* --- 5. 解决方案/图文交替区 (Solutions) --- */
+        .content-section {
+            padding: 5rem 10%;
+        }
+
+        .row {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            margin-bottom: 5rem;
+        }
+
+        /* 偶数行图片在右，文字在左（通过CSS反转） */
+        .row:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .row-text {
+            flex: 1;
+        }
+
+        .row-text h2 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .row-text p {
+            margin-bottom: 1.5rem;
+            color: #555;
+        }
+
+        .row-img {
+            flex: 1;
+        }
+
+        .row-img img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        /* --- 6. 参与行动卡片 (Get Involved) --- */
+        .action-section {
+            padding: 5rem 10%;
+            background-color: var(--bg-light);
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--text-dark);
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
             border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
         }
 
-        .foot_marker a:hover {
-            color: #4388e0;
-        }        
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .card h3 { margin-bottom: 1rem; }
+        .card p { color: #666; margin-bottom: 1.5rem; }
+
+        .btn-text {
+            color: var(--accent-color);
+            font-weight: bold;
+            border-bottom: 2px solid transparent;
+            transition: border 0.3s;
+        }
+        .btn-text:hover { border-bottom: 2px solid var(--accent-color); }
+
+        /* --- 7. 页脚 (Footer) --- */
+        footer {
+            background-color: #111;
+            color: #888;
+            padding: 3rem 5%;
+            text-align: center;
+        }
+        
+        .footer-logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        /* --- 8. 移动端适配 (Responsive) --- */
+        @media (max-width: 768px) {
+            header { padding: 1rem; }
+            .nav-links { display: none; } /* 简化处理：移动端隐藏导航链接 */
+            .hero h1 { font-size: 2.5rem; }
+            .row, .row:nth-child(even) { flex-direction: column; gap: 2rem; }
+        }
     </style>
 </head>
 <body>
-    <div class="search-container">
-        <form action="https://www.google.com/search" method="get" target="_blank">
-            <input class="search-box" type="text" name="q" placeholder="Google 搜索...">
-        </form>
-    </div>
-    
-    <div class="container">
-        <!-- 第一行 -->
-        <div class="link-item">
-            <a href="https://www.google.com" target="_blank">
-                <img class="link-icon" src="https://www.google.com/favicon.ico" alt="Google">
-                <span class="link-text">Google</span>
-            </a>
+
+    <header>
+        <div class="logo">
+            <i class="fas fa-paw"></i> 守护生灵
         </div>
-        <div class="link-item">
-            <a href="https://www.baidu.com" target="_blank">
-                <img class="link-icon" src="https://www.baidu.com/favicon.ico" alt="Baidu">
-                <span class="link-text">Baidu</span>
-            </a>
+        <ul class="nav-links">
+            <li><a href="#about">我们的工作</a></li>
+            <li><a href="#crisis">面临危机</a></li>
+            <li><a href="#stories">成功故事</a></li>
+        </ul>
+        <a href="#donate" class="btn-donate">立即捐款</a>
+    </header>
+
+    <section class="hero">
+        <h1>它们的未来，就在我们一念之间</h1>
+        <p>全球每天有数十个物种消失。加入我们，赶在一切太晚之前，成为它们的守护者。</p>
+        <div class="hero-btns">
+            <a href="#donate" class="btn-donate">守护这片生命</a>
+            <a href="#video" class="btn-outline"><i class="fas fa-play"></i> 观看短片</a>
         </div>
-        <div class="link-item">
-            <a href="https://www.youtube.com" target="_blank">
-                <img class="link-icon" src="https://www.youtube.com/favicon.ico" alt="YouTube">
-                <span class="link-text">Youtube</span>
-            </a>
+    </section>
+
+    <section class="stats" id="crisis">
+        <div class="stat-item">
+            <i class="fas fa-tree"></i>
+            <span class="stat-number">1,200+</span>
+            <p>每天消失的森林公顷数</p>
         </div>
-        <div class="link-item">
-            <a href="https://mail.google.com/mail/u/0/" target="_blank">
-                <img class="link-icon" src="https://mail.google.com/favicon.ico" alt="Gmail">
-                <span class="link-text">Gmail</span>
-            </a>
+        <div class="stat-item">
+            <i class="fas fa-skull-crossbones"></i>
+            <span class="stat-number">15 Min</span>
+            <p>每15分钟一头大象被猎杀</p>
         </div>
-        <div class="link-item">
-            <a href="https://github.com" target="_blank">
-                <img class="link-icon" src="https://github.com/favicon.ico" alt="GitHub">
-                <span class="link-text">GitHub</span>
-            </a>
+        <div class="stat-item">
+            <i class="fas fa-hand-holding-heart"></i>
+            <span class="stat-number">300+</span>
+            <p>今年已成功救助的野生动物</p>
         </div>
-        <div class="link-item">
-            <a href="https://ip.sb" target="_blank">
-                <img class="link-icon" src="https://ip.sb/favicon.ico" alt="IP SB">
-                <span class="link-text">ip.sb</span>
-            </a>
-        </div>
-        
-        <!-- 第二行 -->
-        <div class="link-item">
-            <a href="https://dash.cloudflare.com" target="_blank">
-                <img class="link-icon" src="https://www.cloudflare.com/favicon.ico" alt="Cloudflare">
-                <span class="link-text">Cloudflare</span>
-            </a>
-        </div>
-        <div class="link-item">
-            <a href="https://chat.openai.com" target="_blank">
-                <img class="link-icon" src="https://chat.openai.com/favicon.ico" alt="ChatGPT">
-                <span class="link-text">Chatgpt</span>
-            </a>
-        </div>
-        <div class="link-item">
-            <a href="https://huggingface.co" target="_blank">
-                <img class="link-icon" src="https://huggingface.co/favicon.ico" alt="Hugging Face">
-                <span class="link-text">Huggingface</span>
-            </a>
-        </div>
-        <div class="link-item">
-            <a href="https://www.itdog.cn" target="_blank">
-                <i class="fas fa-network-wired link-icon"></i>
-                <span class="link-text">ITDOG - 在线ping</span>
-            </a>
-        </div>
-        <div class="link-item">
-            <a href="https://ping0.cc" target="_blank">
-                <i class="fas fa-database link-icon"></i>
-                <span class="link-text">Ping0</span>
-            </a>
-        </div>
-        <div class="link-item">
-            <a href="#" target="_blank">
-                <i class="fas fa-fingerprint link-icon"></i>
-                <span class="link-text">浏览器指纹</span>
-            </a>
-        </div>
-        
-        <!-- 第三行 -->
-        <div class="link-item">
-            <a href="https://ssss.nyc.mn" target="_blank">
-                <i class="fas fa-tachometer-alt link-icon"></i>
-                <span class="link-text">nezha面板</span>
-            </a>
-        </div>
-        <div class="link-item">
-            <a href="https://hoppscotch.io" target="_blank">
-                <img class="link-icon" src="https://discord.com/favicon.ico" alt="Discord">
-                <span class="link-text">Api测试</span>
-            </a>
-        </div>
-        <div class="link-item">
-            <a href="https://who.cx" target="_blank">
-                <i class="fas fa-globe link-icon"></i>
-                <span class="link-text">who.cx</span>
-            </a>
-        </div>
-        <div class="link-item">
-            <a href="https://www.domcomp.com" target="_blank">
-                <i class="fas fa-tags link-icon"></i>
-                <span class="link-text">域名比价</span>
-            </a>
-        </div>
-        
-        <div class="link-item">
-            <a href="https://www.nodeseek.com" target="_blank">
-                <i class="fas fa-server link-icon"></i>
-                <span class="link-text">NodeSeek</span>
-            </a>
-        </div>
-        <div class="link-item">
-            <a href="https://linux.do" target="_blank">
-                <i class="fab fa-linux link-icon"></i>
-                <span class="link-text">Linux do</span>
-            </a>
-        </div>
-        
-        <!-- 第四行 -->
-        <div class="link-item">
-            <a href="https://music.gvrander.eu.org" target="_blank">
-                <i class="fab fa-linux link-icon"></i>
-                <span class="link-text">在线音乐</span>
-            </a>           
-        </div>
-        <div class="link-item">
-            <a href="https://www.freereceivesms.com" target="_blank">
-                <i class="fab fa-linux link-icon"></i>
-                <span class="link-text">免费接码</span>
-            </a> 
-        </div>
-        <div class="link-item">
-            <a href="https://sublink.eooce.com" target="_blank">
-                <i class="fab fa-linux link-icon"></i>
-                <span class="link-text">订阅转换</span>
-            </a> 
-        </div>
-        <div class="link-item">
-            <a href="https://ssh.eooce.com" target="_blank">
-                <i class="fab fa-linux link-icon"></i>
-                <span class="link-text">webssh</span>
-            </a> 
-        </div>
-        <div class="link-item">
-            <a href="https://filebox.nnuu.nyc.mn" target="_blank">
-                <i class="fab fa-linux link-icon"></i>
-                <span class="link-text">文件快递柜</span>
-            </a> 
-        </div>
-        <div class="link-item">
-            <a href="https://address.nnuu.nyc.mn" target="_blank">
-                <i class="fab fa-linux link-icon"></i>
-                <span class="link-text">真实地址生成</span>
-            </a> 
+    </section>
+
+    <section class="content-section" id="about">
+        <div class="row">
+            <div class="row-text">
+                <h2>前线守护：反盗猎行动</h2>
+                <p>我们资助并培训一线护林员，配备现代化追踪设备。他们日夜巡逻在森林深处，移除非法捕兽夹，打击犯罪网络，为野生动物筑起第一道防线。</p>
+                <a href="#" class="btn-text">了解巡逻队的故事 &rarr;</a>
+            </div>
+            <div class="row-img">
+                <img src="https://images.unsplash.com/photo-1579548122080-c35fd6820ecb?q=80&w=1000&auto=format&fit=crop" alt="反盗猎巡逻">
+            </div>
         </div>
 
-        <!-- 版权 -->
-        <div class="foot_marker">
-        <a href="https://github.com/eooce" target="_blank">Powered by eooce</a>
-    </div>
+        <div class="row">
+            <div class="row-text">
+                <h2>科学救援与野化放归</h2>
+                <p>从受伤的猛禽到失去母亲的幼兽，我们的医疗中心提供全天候救治。我们的最终目标不仅仅是活下来，而是让它们重新获得野外生存的能力，回归自然。</p>
+                <a href="#" class="btn-text">查看救助日志 &rarr;</a>
+            </div>
+            <div class="row-img">
+                <img src="https://images.unsplash.com/photo-1589656966895-2f33e7653819?q=80&w=1000&auto=format&fit=crop" alt="兽医治疗动物">
+            </div>
+        </div>
+    </section>
 
-    <script>
-        document.querySelectorAll('.link-item:not(.empty)').forEach(item => {
-            const icon = item.querySelector('img.link-icon');
-            if (icon) {
-                icon.onerror = function() {
-                    this.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTEyIDJDNi40NzcgMiAyIDYuNDc3IDIgMTJzNC40NzcgMTAgMTAgMTAgMTAtNC40NzcgMTAtMTBTMTcuNTIzIDIgMTIgMnptMCAyYzQuNDE4IDAgOCAzLjU4MiA4IDhzLTMuNTgyIDgtOCA4LTgtMy41ODItOC04IDMuNTgyLTggOC04eiIgZmlsbD0iIzMzMyIvPjwvc3ZnPg==';
-                }
-            }
-        });
-    </script>
+    <section class="action-section" id="donate">
+        <h2 class="section-title">每个人都可以成为英雄</h2>
+        <div class="cards-container">
+            <div class="card">
+                <i class="fas fa-donate"></i>
+                <h3>每月定捐</h3>
+                <p>成为“核心守护者”，您的每一笔持续捐赠都将转化为巡逻队的燃料和动物的医药费。</p>
+                <a href="#" class="btn-donate">开启月捐</a>
+            </div>
+            <div class="card">
+                <i class="fas fa-otter"></i>
+                <h3>象征性领养</h3>
+                <p>选择您喜爱的动物进行数字化领养，获得专属证书和定期更新的成长报告。</p>
+                <a href="#" class="btn-text">选择领养对象</a>
+            </div>
+            <div class="card">
+                <i class="fas fa-users"></i>
+                <h3>志愿服务</h3>
+                <p>无论是在线支持还是实地考察，贡献您的时间与技能，与我们并肩作战。</p>
+                <a href="#" class="btn-text">查看机会</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo"><i class="fas fa-paw"></i> 守护生灵</div>
+        <p>&copy; 2023 Guardians of the Wild. 非营利组织注册号: 883921.</p>
+        <p style="margin-top: 10px; font-size: 0.8rem;">图片来源: Unsplash (仅作演示用途)</p>
+    </footer>
+
 </body>
 </html>
